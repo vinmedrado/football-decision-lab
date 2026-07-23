@@ -4,6 +4,8 @@ Sistema de apoio à decisão para mercados de futebol, criado para transformar d
 
 > Estado do projeto em 23/07/2026: infraestrutura operacional pronta e experimento prospectivo iniciado. Nenhuma aposta real é executada.
 
+**Demo pública:** [football-decision-lab.netlify.app](https://football-decision-lab.netlify.app)
+
 ## Por que este repositório é uma edição pública
 
 O projeto operacional contém bases locais, artefatos de modelos e configurações privadas. Este repositório publica apenas:
