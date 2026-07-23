@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Football Decision Lab — engenharia de dados, machine learning e avaliação prospectiva aplicada ao futebol.">
+  <meta name="theme-color" content="#07120f">
+  <title>Football Decision Lab — ML & Decision Intelligence</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Pular para o conteúdo</a>
+
+  <header class="site-header">
+    <a class="brand" href="#overview" aria-label="Football Decision Lab — início">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 42 42"><path d="M8 30V14l13-7 13 7v16l-13 7L8 30Z"/><path d="m15 26 6-13 6 13M17.5 22h7"/></svg>
+      </span>
+      <span><strong>Football Decision</strong><small>LAB</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <button class="nav-link active" data-view="overview">Visão geral</button>
+      <button class="nav-link" data-view="dashboard">Dashboard</button>
+      <button class="nav-link" data-view="architecture">Arquitetura</button>
+      <button class="nav-link" data-view="methodology">Método</button>
+    </nav>
+    <div class="header-actions">
+      <span class="system-pill"><i></i> PAPER ONLY</span>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Navegação móvel">
+    <button class="nav-link active" data-view="overview">Visão geral</button>
+    <button class="nav-link" data-view="dashboard">Dashboard</button>
+    <button class="nav-link" data-view="architecture">Arquitetura</button>
+    <button class="nav-link" data-view="methodology">Método</button>
+  </nav>
+
+  <main id="content">
+    <section class="view active" data-page="overview">
+      <div class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">MACHINE LEARNING · MLOPS · DECISION INTELLIGENCE</p>
+          <h1>Previsões são fáceis.<br><em>Provar que funcionam</em> é o projeto.</h1>
+          <p class="hero-lead">Uma plataforma de pesquisa e operação paper que transforma partidas em decisões rastreáveis — com validação temporal, modelos congelados, settlement automático e métricas que não escondem a incerteza.</p>
+          <div class="hero-actions">
+            <button class="primary-button" data-go="dashboard">Explorar o dashboard <span>↗</span></button>
+            <button class="text-button" data-go="architecture">Ver arquitetura <span>→</span></button>
+          </div>
+          <div class="hero-meta">
+            <span><i class="status-dot"></i> Experimento prospectivo ativo</span>
+            <span>Snapshot: 23 jul 2026</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal delay-1" aria-label="Resumo visual do sistema">
+          <div class="field-grid"></div>
+          <svg class="decision-orbit" viewBox="0 0 520 440" aria-hidden="true">
+            <circle cx="260" cy="220" r="158" class="orbit outer"/>
+            <circle cx="260" cy="220" r="112" class="orbit"/>
+            <path d="M102 220h316M260 62v316" class="axis"/>
+            <path d="M144 312C198 238 204 182 260 158c55-24 78-71 116-81" class="signal-line"/>
+            <circle cx="144" cy="312" r="6" class="signal-point"/>
+            <circle cx="260" cy="158" r="8" class="signal-point"/>
+            <circle cx="376" cy="77" r="6" class="signal-point"/>
+          </svg>
+          <div class="core-card">
+            <span class="core-label">MODO ATUAL</span>
+            <strong>PAPER</strong>
+            <span>decisões sem capital real</span>
+          </div>
+          <div class="float-card card-model">
+            <span>MODELO</span><strong>SHA-256</strong><small>bundle congelado</small>
+          </div>
+          <div class="float-card card-clock">
+            <span>CAPTURA</span><strong>30–90m</strong><small>antes do kickoff</small>
+          </div>
+          <div class="float-card card-risk">
+            <span>RISCO</span><strong>−24,73%</strong><small>drawdown histórico</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-band reveal">
+        <article><span>Backfill auditado</span><strong data-bind="historical.records">—</strong><small>registros simulados</small></article>
+        <article><span>ROI histórico</span><strong class="positive" data-format="pct" data-bind="historical.roi">—</strong><small>não é lucro real</small></article>
+        <article><span>IC 95% do ROI</span><strong class="warning" id="ciMetric">—</strong><small>incerteza cruza zero</small></article>
+        <article><span>Ciclo prospectivo</span><strong data-bind="paper.settled">—</strong><small>de 300 liquidados</small></article>
+      </div>
+
+      <section class="content-section problem-grid">
+        <div class="section-intro reveal">
+          <p class="eyebrow">O PROBLEMA CERTO</p>
+          <h2>Não confundir um número positivo com uma conclusão.</h2>
+          <p>O histórico terminou positivo, mas perdeu força na segunda metade, teve drawdown relevante e não superou o baseline de calibração. O projeto foi desenhado para revelar essas limitações.</p>
+        </div>
+        <div class="evidence-stack reveal delay-1">
+          <article class="evidence-card">
+            <span class="evidence-index">01</span>
+            <div><h3>Retorno</h3><p>ROI, lucro e estabilidade por período.</p></div>
+            <strong class="positive">+3,02%</strong>
+          </article>
+          <article class="evidence-card">
+            <span class="evidence-index">02</span>
+            <div><h3>Incerteza</h3><p>Bootstrap diário com 10 mil repetições.</p></div>
+            <strong class="warning">−3,26 → 9,32</strong>
+          </article>
+          <article class="evidence-card">
+            <span class="evidence-index">03</span>
+            <div><h3>Calibração</h3><p>Brier do modelo contra baseline constante.</p></div>
+            <strong class="negative">0,2585</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section principle-section">
+        <div class="principle-card reveal">
+          <div>
+            <p class="eyebrow">DECISÃO DE ENGENHARIA</p>
+            <h2>Dois ciclos. Uma fronteira clara.</h2>
+          </div>
+          <div class="principle-copy">
+            <p>Pesquisa pode treinar e comparar challengers. Operação usa um champion imutável. Nada é promovido porque “pareceu melhor” numa nova rodada.</p>
+            <button class="text-button light" data-go="methodology">Entender a governança <span>→</span></button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="view" data-page="dashboard">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">SNAPSHOT DEMONSTRATIVO</p>
+          <h1>Centro de decisão</h1>
+          <p>Dados congelados em 23/07/2026. Nenhum endpoint operacional está exposto.</p>
+        </div>
+        <div class="snapshot-badge"><i></i><span>Snapshot imutável<small id="snapshotTime">—</small></span></div>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="panel metric-panel">
+          <span>Lucro simulado</span>
+          <strong class="positive" data-format="currency" data-bind="historical.profit">—</strong>
+          <small>sobre R$ 4.555 de stake</small>
+          <div class="spark-bars" id="monthlyBars" aria-label="Lucro mensal"></div>
+        </article>
+        <article class="panel metric-panel">
+          <span>Win rate</span>
+          <strong data-format="pct" data-bind="historical.winRate">—</strong>
+          <small>452 vitórias · 459 derrotas</small>
+          <div class="progress-track"><i style="width:49.6158%"></i></div>
+        </article>
+        <article class="panel metric-panel risk-panel">
+          <span>Maior drawdown</span>
+          <strong class="negative" data-format="pct" data-bind="historical.drawdownPct">—</strong>
+          <small>54 dias até recuperação</small>
+          <svg class="risk-mark" viewBox="0 0 120 40" aria-hidden="true"><path d="M2 6 24 11 44 8 60 27 78 36 96 18 118 15"/></svg>
+        </article>
+        <article class="panel metric-panel">
+          <span>Odd média</span>
+          <strong data-format="decimal" data-bind="historical.averageOdd">—</strong>
+          <small>mercado TG_FT_O25</small>
+          <span class="model-chip">threshold 0,60</span>
+        </article>
+
+        <article class="panel equity-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">CURVA HISTÓRICA</span><h2>Evolução simulada</h2></div>
+            <div class="legend"><i></i> banca acumulada</div>
+          </div>
+          <div class="chart-wrap">
+            <svg id="equityChart" viewBox="0 0 800 280" role="img" aria-label="Curva demonstrativa da banca simulada"></svg>
+          </div>
+        </article>
+
+        <article class="panel audit-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">LEITURA DA AUDITORIA</span><h2>Sinais conflitantes</h2></div>
+            <span class="audit-status">INCONCLUSIVO</span>
+          </div>
+          <div class="audit-row"><span>ROI agregado</span><strong class="positive">positivo</strong></div>
+          <div class="audit-row"><span>IC 95%</span><strong class="warning">cruza zero</strong></div>
+          <div class="audit-row"><span>2ª metade</span><strong class="negative">−0,75%</strong></div>
+          <div class="audit-row"><span>Brier vs baseline</span><strong class="negative">pior</strong></div>
+          <p class="audit-note">Conclusão correta: continuar coletando, sem promover o sistema a uso real.</p>
+        </article>
+
+        <article class="panel signals-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">INTERFACE DO PRODUTO</span><h2>Sinais ilustrativos</h2></div>
+            <span class="demo-label">DADOS FICTÍCIOS</span>
+          </div>
+          <div class="signal-table" id="signalTable"></div>
+        </article>
+
+        <article class="panel progress-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">PAPER TRADING</span><h2>Progresso prospectivo</h2></div>
+            <span class="live-chip"><i></i> coletando</span>
+          </div>
+          <div class="target-scale">
+            <div class="target-line"><i style="width:0%"></i></div>
+            <div class="target-marks">
+              <span><b>0</b>agora</span><span><b>100</b>diagnóstico</span><span><b>300</b>decisão</span><span><b>500</b>robusto</span>
+            </div>
+          </div>
+          <p>O ciclo iniciou no mesmo dia do snapshot. Métricas prospectivas aparecem apenas quando houver amostra; zero não é substituído pelo histórico.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" data-page="architecture">
+      <div class="page-heading architecture-heading">
+        <div>
+          <p class="eyebrow">SYSTEM DESIGN</p>
+          <h1>Do dado bruto à decisão auditável.</h1>
+          <p>Cada etapa tem uma responsabilidade, um artefato rastreável e uma falha que precisa ser contida.</p>
+        </div>
+        <div class="architecture-key">
+          <span><i class="ready"></i> pronto</span>
+          <span><i class="active"></i> em operação</span>
+          <span><i class="warning"></i> sob revisão</span>
+        </div>
+      </div>
+
+      <div class="pipeline-shell">
+        <div class="pipeline-track" id="pipelineTrack"></div>
+        <div class="pipeline-detail panel" id="pipelineDetail">
+          <span class="panel-kicker">SELECIONE UMA ETAPA</span>
+          <h2>Arquitetura interativa</h2>
+          <p>Clique nos blocos do fluxo para inspecionar o papel de cada componente.</p>
+        </div>
+      </div>
+
+      <div class="architecture-columns">
+        <section class="panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">ORQUESTRAÇÃO</span><h2>Calendário operacional</h2></div>
+            <span class="system-pill"><i></i> idempotente</span>
+          </div>
+          <div class="ops-list" id="opsList"></div>
+        </section>
+        <section class="panel control-panel">
+          <div class="panel-heading">
+            <div><span class="panel-kicker">CONTROLES</span><h2>Guardrails</h2></div>
+          </div>
+          <ul class="check-list">
+            <li><i>✓</i><span><strong>Fail closed</strong>Sem dados válidos, nenhuma previsão é registrada.</span></li>
+            <li><i>✓</i><span><strong>Imutabilidade</strong>Sinais paper não mudam depois do kickoff.</span></li>
+            <li><i>✓</i><span><strong>Hashes</strong>Modelo e dependências identificados por SHA-256.</span></li>
+            <li><i>✓</i><span><strong>Retomada</strong>Slots vencidos são reconciliados após desligamento.</span></li>
+            <li><i>✓</i><span><strong>Revisão humana</strong>Challengers nunca são promovidos sozinhos.</span></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section class="view" data-page="methodology">
+      <div class="page-heading methodology-heading">
+        <div>
+          <p class="eyebrow">MÉTODO & GOVERNANÇA</p>
+          <h1>A disciplina está no que o sistema se recusa a concluir.</h1>
+          <p>Resultados são classificados pela origem, analisados com risco e só comparados dentro do mesmo protocolo.</p>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <article class="method-card panel">
+          <span class="method-number">01</span>
+          <h2>Separação temporal</h2>
+          <p>Features respeitam o instante da decisão. Backtests usam cortes por data e a captura prospectiva ocorre antes do jogo.</p>
+          <span class="method-tag">NO FUTURE LEAKAGE</span>
+        </article>
+        <article class="method-card panel">
+          <span class="method-number">02</span>
+          <h2>Evidência rotulada</h2>
+          <p>Backfill, backtest e paper prospectivo nunca compartilham o mesmo rótulo de resultado. O dashboard torna a origem visível.</p>
+          <span class="method-tag">DATA LINEAGE</span>
+        </article>
+        <article class="method-card panel">
+          <span class="method-number">03</span>
+          <h2>Probabilidade auditada</h2>
+          <p>ROI não substitui Brier, log loss e calibração. Um modelo pode acertar retorno no período e ainda estimar probabilidades ruins.</p>
+          <span class="method-tag">CALIBRATION FIRST</span>
+        </article>
+        <article class="method-card panel">
+          <span class="method-number">04</span>
+          <h2>Promoção deliberada</h2>
+          <p>Treinar um challenger é automático; trocar o champion não. A decisão exige relatório, amostra e versionamento de ciclo.</p>
+          <span class="method-tag">HUMAN IN THE LOOP</span>
+        </article>
+      </div>
+
+      <section class="decision-ladder panel">
+        <div class="ladder-intro">
+          <span class="panel-kicker">AMOSTRA PROSPECTIVA</span>
+          <h2>Quando olhar — e o que ainda não concluir.</h2>
+          <p>Os marcos organizam revisões. Eles não são garantias nem gatilhos de aposta real.</p>
+        </div>
+        <div class="ladder-steps">
+          <article><span>100</span><div><strong>Diagnóstico</strong><p>Checar dados, settlement, drift e erros operacionais.</p></div></article>
+          <article><span>300</span><div><strong>Decisão</strong><p>Reavaliar retorno, IC, drawdown, calibração e estabilidade.</p></div></article>
+          <article><span>500</span><div><strong>Robustez</strong><p>Confirmar se o comportamento persiste em mais contextos.</p></div></article>
+        </div>
+      </section>
+
+      <section class="honesty-panel">
+        <div>
+          <span class="panel-kicker">LIMITAÇÃO CENTRAL</span>
+          <h2>O sistema ainda não provou lucro.</h2>
+        </div>
+        <p>O snapshot histórico foi positivo, mas seu intervalo de confiança inclui resultado negativo e a calibração ficou abaixo do baseline. A resposta de engenharia foi iniciar um experimento prospectivo — não apagar os sinais desconfortáveis.</p>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="brand-mark small" aria-hidden="true">
+        <svg viewBox="0 0 42 42"><path d="M8 30V14l13-7 13 7v16l-13 7L8 30Z"/><path d="m15 26 6-13 6 13M17.5 22h7"/></svg>
+      </span>
+      <div><strong>Football Decision Lab</strong><span>ML · MLOps · Responsible experimentation</span></div>
+    </div>
+    <p>Projeto educacional. Resultados simulados não garantem desempenho futuro.</p>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

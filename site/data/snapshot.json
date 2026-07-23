@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "project": "Football Decision Lab",
+    "snapshotAt": "2026-07-23T14:02:56-03:00",
+    "timezone": "America/Sao_Paulo",
+    "mode": "PAPER_ONLY",
+    "scope": "SIMULADO",
+    "realBetsAllowed": false,
+    "cycleId": "PAPER_2026_07_TG_FT_O25_V1",
+    "policyVersion": "1.1.0",
+    "reviewNotBefore": "2026-10-01"
+  },
+  "historical": {
+    "records": 914,
+    "settled": 911,
+    "pending": 3,
+    "wins": 452,
+    "losses": 459,
+    "stake": 4555.0,
+    "profit": 137.55,
+    "roi": 3.0198,
+    "roiCiLow": -3.2586,
+    "roiCiHigh": 9.3234,
+    "probabilityNonPositive": 17.18,
+    "winRate": 49.6158,
+    "averageOdd": 2.086,
+    "drawdownValue": -119.6,
+    "drawdownPct": -24.7337,
+    "recoveryDays": 54,
+    "firstHalfRoi": 6.7956,
+    "secondHalfRoi": -0.7478,
+    "brier": 0.258454,
+    "brierBaseline": 0.249985,
+    "logLoss": 0.711106,
+    "logLossBaseline": 0.693118,
+    "ece": 0.086985
+  },
+  "paper": {
+    "status": "COLETANDO_DADOS",
+    "settled": 0,
+    "pending": 0,
+    "diagnosticTarget": 100,
+    "decisionTarget": 300,
+    "robustTarget": 500,
+    "stakeFixed": 5.0,
+    "maxBetsPerDay": 10,
+    "captureWindow": "30–90 min antes do jogo",
+    "settlementFirstAttempt": "+130 min",
+    "automaticPromotion": false,
+    "automaticRecalibration": false
+  },
+  "monthly": [
+    {"month": "Fev", "profit": 21.4, "roi": 2.8},
+    {"month": "Mar", "profit": 83.9, "roi": 8.7},
+    {"month": "Abr", "profit": 34.1, "roi": 3.6},
+    {"month": "Mai", "profit": -42.6, "roi": -4.9},
+    {"month": "Jun", "profit": 53.2, "roi": 5.8},
+    {"month": "Jul", "profit": -12.45, "roi": -2.7}
+  ],
+  "equity": [
+    250.0, 266.5, 257.0, 279.8, 301.2, 287.5, 323.0, 338.4, 318.8,
+    349.1, 365.2, 341.6, 372.0, 405.7, 389.2, 421.4, 397.3, 431.8,
+    415.1, 448.2, 425.4, 459.0, 441.2, 472.7, 446.0, 469.5, 455.9,
+    482.3, 469.7, 487.55
+  ],
+  "pipeline": [
+    {"id": "ingest", "label": "Ingestão", "detail": "Calendário e dados do dia", "status": "ready"},
+    {"id": "validate", "label": "Validação", "detail": "Schema, qualidade e tempo", "status": "ready"},
+    {"id": "features", "label": "Features", "detail": "Pipeline reproduzível", "status": "ready"},
+    {"id": "research", "label": "Backtest", "detail": "Divisões temporais", "status": "warning"},
+    {"id": "registry", "label": "Registry", "detail": "Versões e hashes", "status": "ready"},
+    {"id": "capture", "label": "Paper capture", "detail": "Sinais pré-jogo imutáveis", "status": "active"},
+    {"id": "settle", "label": "Settlement", "detail": "Resultados e retries", "status": "active"},
+    {"id": "monitor", "label": "Monitoramento", "detail": "ROI, risco e calibração", "status": "active"}
+  ],
+  "operations": [
+    {"job": "Atualização diária", "frequency": "60 min", "guard": "2 tentativas por janela"},
+    {"job": "Scanner pré-jogo", "frequency": "15 min", "guard": "janela 30–90 min"},
+    {"job": "Settlement dinâmico", "frequency": "15 min", "guard": "fila por horário"},
+    {"job": "Monitor paper", "frequency": "23:15", "guard": "relatório diário"},
+    {"job": "Atualização da base", "frequency": "terça, 02:00", "guard": "incremental"},
+    {"job": "Revisão challenger", "frequency": "dia 2, 03:00", "guard": "sem autopromoção"}
+  ],
+  "demoSignals": [
+    {"time": "14:30", "league": "Premier Division", "match": "Northbridge × Riverside", "market": "Mais de 2,5 gols", "probability": 64.8, "odd": 1.94, "ev": 25.7, "quality": "Alta"},
+    {"time": "17:00", "league": "National League", "match": "Athletic Town × United City", "market": "Mais de 2,5 gols", "probability": 62.1, "odd": 1.88, "ev": 16.7, "quality": "Média"},
+    {"time": "20:15", "league": "Division One", "match": "Port Vale FC × Central SC", "market": "Mais de 2,5 gols", "probability": 60.7, "odd": 2.02, "ev": 22.6, "quality": "Média"}
+  ]
+}
