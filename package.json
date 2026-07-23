@@ -1,0 +1,13 @@
+{
+  "name": "football-decision-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfólio estático do Football Decision Lab.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-static.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
