@@ -1,5 +1,11 @@
 # Football Decision Lab
 
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-111827?style=for-the-badge)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
 Sistema de apoio a decisao para mercados de futebol, desenvolvido para transformar dados de partidas em previsoes reproduziveis e avaliar uma estrategia em um experimento prospectivo controlado.
 
 [Ver demonstracao publica](https://football-decision-lab.netlify.app)
