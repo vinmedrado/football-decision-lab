@@ -31,6 +31,8 @@ Coleta -> Validacao -> Features -> Backtest temporal -> Modelo congelado
 
 ## Screenshots
 
+![Football Decision Lab demo](assets/demo/demo.gif)
+
 ![Portfolio screenshot](https://raw.githubusercontent.com/vinmedrado/portfolio/main/images/footballdecisionlab.png)
 
 ## Funcionalidades
