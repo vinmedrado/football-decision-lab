@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <script>
+  (function(){
+    try{
+      var t = localStorage.getItem('fl_theme');
+      if(!t) t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){}
+  })();
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#FFF6EA" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Football Decision Lab" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Football Decision Lab</title>
+  <link rel="manifest" href="/static/manifest.json" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/icon-180.png" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">CONTROL CENTER</p>
+      <h1>Football Decision Lab ⚡</h1>
+      <div class="sync-row"><span class="conn-dot" id="connDot"></span><small id="lastUpdate">Atualizando...</small></div>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggle" title="Alternar tema">🌙</button>
+      <button class="icon-btn bell-btn" id="alertToggle" title="Alertas de novo sinal">🔔</button>
+      <div class="health-pill" id="healthPill"><span id="healthDot"></span><b id="healthLabel">...</b></div>
+    </div>
+  </header>
+
+  <div class="ptr" id="ptr"><i></i><span>Sincronizando...</span></div>
+  <div class="stale-banner" id="staleBanner">Sem resposta do servidor — mostrando os últimos dados sincronizados.</div>
+  <div class="version-banner" id="versionBanner">
+    <div>
+      <strong>Nova previsão disponível</strong>
+      <span id="versionBannerText">Atualize para carregar os dados mais recentes.</span>
+    </div>
+    <button id="versionRefreshNow" type="button">Atualizar agora</button>
+  </div>
+  <div class="day-brief" id="dayBrief"><span id="dayBriefText"></span><button id="dayBriefClose">×</button></div>
+
+  <main>
+    <section class="tab-panel active" data-panel="home">
+      <section class="hero-grid">
+        <article class="score-card hero"><i class="s-ic">💰</i><span>Saldo simulado</span><strong id="saldo">R$ 0,00</strong><small id="lucro">Lucro R$ 0,00</small></article>
+        <article class="score-card"><i class="s-ic orange">⚡</i><span>Saúde</span><strong id="health">0</strong><small id="healthMode">-</small></article>
+        <article class="score-card"><i class="s-ic purple">📈</i><span>Retorno (ROI)</span><strong id="roi">0%</strong><small id="winrate">Taxa de acerto 0%</small></article>
+        <article class="score-card"><i class="s-ic teal">🎯</i><span>Indicações oficiais hoje</span><strong id="sinais">0</strong><small id="previsoesTotal">0 previsões analisadas</small></article>
+      </section>
+
+      <section class="status-strip" id="statusStrip"></section>
+
+      <section class="section-card highlight-card">
+        <div class="section-head">
+          <div><p class="eyebrow">CICLO PAPER ATUAL</p><h2>Indicações oficiais do dia</h2></div>
+          <span id="topSignalCount" class="chip">0</span>
+        </div>
+        <div id="topPredictions" class="tickets featured"></div>
+      </section>
+
+      <section class="chart-grid">
+        <article class="section-card">
+          <div class="section-head"><div><p class="eyebrow">BANCA</p><h2>Evolução</h2></div><span id="drawdownChip" class="chip">Queda 0%</span></div>
+          <div class="chart-box"><svg id="bankChart" viewBox="0 0 720 240" preserveAspectRatio="none"></svg></div>
+        </article>
+        <article class="section-card">
+          <div class="section-head"><div><p class="eyebrow">RESUMO</p><h2>Resultados</h2></div></div>
+          <div class="mini-stats" id="homeBankStats"></div>
+        </article>
+      </section>
+
+      <section class="section-card">
+        <div class="section-head"><div><p class="eyebrow">CENTRO DE COMANDO</p><h2>Rotinas rápidas</h2></div><span class="chip">Rede local</span></div>
+        <div class="action-grid compact">
+          <button data-task="fetch_today"><span>⚽</span>Atualizar jogos</button>
+          <button data-task="predict_today"><span>🔮</span>Gerar previsões</button>
+          <button data-task="update_bank"><span>💰</span>Atualizar simulação</button>
+          <button class="primary" data-task="full_today"><span>▶</span>Rotina completa</button>
+        </div>
+        <div class="task-status">
+          <div class="task-row"><span id="taskLabel">Nenhuma execução</span><span id="taskProgressText">0%</span></div>
+          <div class="progress"><i id="taskProgress"></i></div>
+          <pre id="taskMiniLog">Aguardando...</pre>
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" data-panel="jogos">
+      <div class="section-head sticky-head">
+        <div><p class="eyebrow">CICLO PAPER ATUAL</p><h2>Sinais aprovados pelo modelo</h2></div>
+        <div class="head-actions"><span id="prevFile" class="chip">-</span><button class="icon-btn" id="openCalJogos" title="Ver calendário">📅</button></div>
+      </div>
+      <div id="predictionSourceNotice" class="prediction-source-notice hidden"></div>
+      <div class="spotlight" id="spotlight"></div>
+      <div class="date-chip" id="dateChipJogos"><span id="dateChipJogosText">-</span><button id="dateChipJogosClear">×</button></div>
+      <div class="filter-row">
+        <select id="sortPredictions" class="select-sort">
+          <option value="default">Padrão</option>
+          <option value="ev">Maior vantagem estimada</option>
+          <option value="odd">Maior cotação</option>
+          <option value="conf">Maior confiança</option>
+        </select>
+      </div>
+      <div class="filter-row"><input id="searchPredictions" type="search" placeholder="Buscar time, liga ou mercado" /></div>
+      <div id="predictions" class="tickets"></div>
+      <div id="predictionsPager" class="predictions-pager hidden" aria-label="Paginação das previsões">
+        <button id="predictionsPrev" class="pager-btn" type="button">← Anterior</button>
+        <div class="pager-center"><strong id="predictionsPageInfo">1 / 1</strong><small id="predictionsCountInfo">0 previsões</small></div>
+        <button id="predictionsNext" class="pager-btn" type="button">Próxima →</button>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="banca">
+      <div class="section-head"><div><p class="eyebrow">BANCA SIMULADA</p><h2>Desempenho</h2></div><button class="ghost" data-task="update_bank">Atualizar</button></div>
+      <div class="hero-grid bank-cards">
+        <article class="score-card"><i class="s-ic orange">💰</i><span>Saldo</span><strong id="bankSaldo">R$ 0,00</strong><small id="bankLucro">-</small></article>
+        <article class="score-card"><i class="s-ic purple">📈</i><span>Retorno (ROI)</span><strong id="bankRoi">0%</strong><small id="bankStake">-</small></article>
+        <article class="score-card"><i class="s-ic teal">🏆</i><span>Taxa de acerto</span><strong id="bankWinrate">0%</strong><small id="bankRecord">-</small></article>
+        <article class="score-card"><i class="s-ic red">📉</i><span>Maior queda</span><strong id="bankDrawdown">0%</strong><small id="bankPending">-</small></article>
+      </div>
+      <section class="section-card paper-card">
+        <div class="section-head">
+          <div><p class="eyebrow">TESTE PROSPECTIVO</p><h2>Simulação ao vivo isolada</h2></div>
+          <span id="paperStatus" class="chip">AGUARDANDO</span>
+        </div>
+        <div class="paper-meta"><span id="paperCycle">-</span><span id="paperTiming">Captura -</span><span id="paperAutomation">Automação -</span><span id="paperCalibration">Calibração -</span></div>
+        <div class="hero-grid paper-metrics">
+          <article class="score-card"><span>Apostas liquidadas</span><strong id="paperSettled">0</strong><small id="paperPending">0 pendentes</small></article>
+          <article class="score-card"><span>Lucro da simulação</span><strong id="paperProfit">R$ 0,00</strong><small id="paperStake">Total simulado R$ 0,00</small></article>
+          <article class="score-card"><span>Retorno da simulação</span><strong id="paperRoi">-</strong><small id="paperRoiCi">Faixa de confiança aguardando</small></article>
+          <article class="score-card"><span>Erro de probabilidade</span><strong id="paperBrier">-</strong><small id="paperCalError">Erro -</small></article>
+        </div>
+        <div class="paper-progress-head"><span>Meta de decisão: 300 liquidadas</span><b id="paperProgressText">0%</b></div>
+        <div class="progress paper-progress"><i id="paperProgress"></i></div>
+        <p class="paper-message" id="paperMessage">Coletando dados prospectivos.</p>
+        <div class="segment-tabs paper-tabs">
+          <button class="segment active" data-paper-segment="markets">Mercados</button>
+          <button class="segment" data-paper-segment="leagues">Ligas</button>
+          <button class="segment" data-paper-segment="months">Meses</button>
+        </div>
+        <div id="paperMarkets" class="rank-list"></div>
+        <div id="paperLeagues" class="rank-list hidden"></div>
+        <div id="paperMonths" class="rank-list hidden"></div>
+        <div class="section-head" style="margin-top:18px">
+          <div><p class="eyebrow">RESULTADOS DO CICLO</p><h3>Apostas registradas</h3></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Data</th><th>Jogo</th><th>Mercado</th><th>Resultado</th><th>Lucro</th></tr></thead>
+            <tbody id="paperRows"><tr><td colspan="5">Carregando apostas...</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="section-card no-margin"><div class="chart-box tall"><svg id="bankChartFull" viewBox="0 0 720 280" preserveAspectRatio="none"></svg></div></div>
+
+      <div class="section-card">
+        <div class="section-head"><div><p class="eyebrow">MAPA DIÁRIO</p><h2>Resultado por dia</h2></div><span id="heatmapRange" class="chip">-</span></div>
+        <div class="heatmap-scroll"><div id="heatmap" class="heatmap-grid"></div></div>
+        <div class="heatmap-legend">
+          <span>Prejuízo</span>
+          <i class="hm-swatch loss l3"></i><i class="hm-swatch loss l2"></i><i class="hm-swatch loss l1"></i>
+          <i class="hm-swatch flat"></i>
+          <i class="hm-swatch win l1"></i><i class="hm-swatch win l2"></i><i class="hm-swatch win l3"></i>
+          <span>Lucro</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="segment-tabs"><button class="segment active" data-bank-segment="markets">Mercados</button><button class="segment" data-bank-segment="leagues">Ligas</button><button class="segment" data-bank-segment="history">Histórico</button></div>
+        <div id="bankMarkets" class="rank-list"></div>
+        <div id="bankLeagues" class="rank-list hidden"></div>
+        <div id="bankHistory" class="hidden">
+          <div class="section-head" style="margin-bottom:8px">
+            <div class="date-chip" id="dateChipBanca"><span id="dateChipBancaText">-</span><button id="dateChipBancaClear">×</button></div>
+            <button class="icon-btn" id="openCalBanca" title="Ver calendário">📅</button>
+            <button class="icon-btn" id="exportBankCsv" title="Exportar CSV">⭳</button>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Data</th><th>Jogo</th><th>Mercado</th><th>Resultado</th><th>Lucro</th></tr></thead><tbody id="bankRows"></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="ia">
+      <div class="section-head"><div><p class="eyebrow">INTELIGÊNCIA</p><h2>Modelos e mercados</h2></div><span id="modelCount" class="chip">0</span></div>
+      <div class="mini-stats model-stats" id="modelStats"></div>
+      <div class="section-card no-margin">
+        <div class="segment-tabs"><button class="segment active" data-ai-segment="models">Modelos</button><button class="segment" data-ai-segment="markets">Mercados</button></div>
+        <div id="models" class="market-grid"></div>
+        <div id="markets" class="market-grid hidden"></div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="sistema">
+      <div class="section-head"><div><p class="eyebrow">SISTEMA</p><h2>Operação e registros</h2></div><button class="ghost" id="refreshNow">Atualizar</button></div>
+      <div id="alerts" class="alerts"></div>
+      <section class="section-card no-margin">
+        <div class="action-grid">
+          <button data-task="fetch_today">Atualizar jogos</button>
+          <button data-task="predict_today">Gerar previsões da simulação</button>
+          <button data-task="import_bank">Registrar na banca simulada</button>
+          <button data-task="settle">Atualizar resultados</button>
+          <button data-task="settle_flashscore_preview">Prévia Flashscore</button>
+          <button class="danger-action" data-task="settle_flashscore_apply">Aplicar Flashscore</button>
+          <button data-task="rebuild_bank">Reconstruir banca</button>
+          <button data-task="profile_markets">Analisar mercados</button>
+          <button data-task="scores_context">Avaliar contextos</button>
+          <button data-task="model_registry">Atualizar catálogo de modelos</button>
+          <button class="primary wide" data-task="full_today">Executar rotina completa</button>
+        </div>
+      </section>
+
+      <section class="section-card glossary-card">
+        <div class="section-head">
+          <div><p class="eyebrow">AJUDA RÁPIDA</p><h2>O que significam os indicadores</h2></div>
+        </div>
+        <div class="glossary-grid">
+          <div><b>Retorno (ROI)</b><span>Lucro ou prejuízo comparado ao total simulado.</span></div>
+          <div><b>Taxa de acerto</b><span>Percentual de previsões liquidadas que venceram.</span></div>
+          <div><b>Maior queda</b><span>Pior recuo da banca desde um ponto máximo.</span></div>
+          <div><b>Vantagem estimada (EV)</b><span>Diferença estimada entre nossa probabilidade e a cotação.</span></div>
+          <div><b>Qualidade (AUC)</b><span>Capacidade do modelo de separar casos positivos e negativos.</span></div>
+          <div><b>Erro de probabilidade (Brier)</b><span>Quanto as probabilidades erraram; menor costuma ser melhor.</span></div>
+        </div>
+      </section>
+
+      <section class="section-card telemetry-card">
+        <div class="section-head"><div><p class="eyebrow">TELEMETRIA</p><h2>Saúde do notebook</h2></div><span id="uptimeChip" class="chip">Ligado 0m</span></div>
+        <div class="telemetry-grid">
+          <div class="telemetry-item"><span>CPU</span><b id="cpuUsage">-</b><i><em id="cpuBar"></em></i></div>
+          <div class="telemetry-item"><span>Memória</span><b id="ramUsage">-</b><i><em id="ramBar"></em></i></div>
+          <div class="telemetry-item"><span>Processo</span><b id="processMemory">-</b><small>FastAPI</small></div>
+          <div class="telemetry-item"><span>Atualização histórica</span><b id="pipelineState">Parado</b><small id="pipelineStep">Aguardando</small></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-head"><div><p class="eyebrow">TELEMETRIA</p><h2>Registros técnicos em tempo real</h2></div><button class="ghost" id="copyLogs">Copiar</button></div>
+        <pre id="logs" class="terminal"></pre>
+      </section>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="active" data-tab="home" aria-pressed="true"><span>⌂</span>Início</button>
+    <button data-tab="jogos" aria-pressed="false"><span>⚽</span>Jogos</button>
+    <button data-tab="banca" aria-pressed="false"><span>◔</span>Banca</button>
+    <button data-tab="ia" aria-pressed="false"><span>◇</span>IA</button>
+    <button data-tab="sistema" aria-pressed="false"><span>⚙</span>Sistema</button>
+  </nav>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="cal-drawer" id="calDrawer" aria-hidden="true">
+    <div class="cal-head">
+      <button class="cal-nav" id="calPrev">‹</button>
+      <b id="calMonthLabel">-</b>
+      <button class="cal-nav" id="calNext">›</button>
+    </div>
+    <div class="cal-weekdays"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-hint">Dias com bolinha laranja têm jogos ou apostas registradas. Toque num dia para filtrar.</div>
+    <div class="cal-foot">
+      <button class="cal-clear" id="calClear">Limpar filtro</button>
+      <button class="cal-close" id="calClose">Fechar</button>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>window.__INITIAL__ = {{ d|tojson }};</script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

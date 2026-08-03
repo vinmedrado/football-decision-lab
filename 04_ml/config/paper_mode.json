@@ -1,0 +1,36 @@
+{
+  "enabled": true,
+  "mode": "paper_only",
+  "cycle_id": "PAPER_2026_07_TG_FT_O25_V1",
+  "policy_version": "1.1.0",
+  "started_at": "2026-07-23",
+  "review_not_before": "2026-10-01",
+  "allow_real_bets": false,
+  "immutable_prediction_rows": true,
+  "timezone": "America/Sao_Paulo",
+  "capture_window_min_minutes": 30,
+  "capture_window_max_minutes": 90,
+  "settlement_first_attempt_minutes_after_kickoff": 130,
+  "settlement_retry_minutes": [30, 60, 180, 360],
+  "stake_fixed": 5.0,
+  "paper_bank_initial": 250.0,
+  "max_daily_exposure_pct": 0.2,
+  "max_bets_per_day": 10,
+  "max_bets_per_league": 5,
+  "max_bets_per_market": 10,
+  "max_bets_per_game": 1,
+  "models": [
+    {
+      "market": "TG_FT_O25",
+      "threshold": 0.6,
+      "odd_min": 1.2,
+      "odd_max": 3.5,
+      "registry_id": "373d17dfc75e",
+      "model_sha256": "0e2a16987ea88f5899bd4bfe765bba85c4199bec4f80c2cc5b7c60979dacdb24",
+      "context_models_sha256": "c72416fb265eba27c33ed0acb91dda6da9f85c4bab363de9341b2150f5bba123",
+      "meta_sha256": "8d542ca65c79c546211033a423a6a17fbd6bd103f1be6337a63564c1b248294d",
+      "features_sha256": "911a69390a802adb4dad410e86cb59cf28b379e5920355e9aa7f885bb2929823",
+      "encoders_sha256": "cd2aed8c71946b3a8adadf7b866414a3521ad24a47d1b1cef518371f624ddb23"
+    }
+  ]
+}

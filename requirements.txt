@@ -1,0 +1,17 @@
+pandas>=2.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+openpyxl>=3.1.0
+rapidfuzz>=3.6.0
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+joblib>=1.3.0
+
+# Optional terminal UI
+rich>=13.0.0
+tqdm>=4.66.0
+pytest>=8.0.0
+
+# Painel web (opcional — só necessário se você usar painel_web/)
+Flask>=3.0.0

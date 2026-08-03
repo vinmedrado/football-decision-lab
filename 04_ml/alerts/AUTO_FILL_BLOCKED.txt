@@ -1,0 +1,3 @@
+AUTO-FILL BLOQUEADO
+Data: 2026-06-24T17:49:15
+Motivo: FASE 11 ativa: o projeto gera análise e simulação, mas bloqueia registro automático operacional.

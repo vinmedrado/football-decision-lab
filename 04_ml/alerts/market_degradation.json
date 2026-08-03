@@ -1,0 +1,18 @@
+{
+  "gerado_em": "2026-06-24T17:45:27",
+  "status": "ALERT",
+  "rule": "ROI < -3% com mínimo de 100 registros finalizados",
+  "degraded_mercados": [
+    {
+      "mercado": "DC_12",
+      "apostas": 443,
+      "ganhos": 306,
+      "perdas": 137,
+      "win_rate": 0.690745,
+      "roi": -0.041603,
+      "lucro_liquido": -39.07,
+      "stake": 939.12,
+      "odd_media": 1.3967
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "enabled": true,
+  "timezone": "America/Sao_Paulo",
+  "heartbeat_minutes": 15,
+  "lock_stale_after_minutes": 240,
+  "retry_after_minutes": 45,
+  "jobs": {
+    "daily_refresh": {
+      "enabled": true,
+      "not_before": "2026-07-24",
+      "frequency": "interval",
+      "every_minutes": 60,
+      "max_attempts_per_slot": 2
+    },
+    "paper_scan": {
+      "enabled": true,
+      "not_before": "2026-07-24",
+      "frequency": "interval",
+      "every_minutes": 15,
+      "max_attempts_per_slot": 2
+    },
+    "dynamic_settlement": {
+      "enabled": true,
+      "not_before": "2026-07-24",
+      "frequency": "interval",
+      "every_minutes": 15,
+      "max_attempts_per_slot": 2
+    },
+    "settlement": {
+      "enabled": true,
+      "not_before": "2026-07-24",
+      "frequency": "daily",
+      "at": ["10:00", "22:30"],
+      "max_attempts_per_slot": 2
+    },
+    "paper_monitor": {
+      "enabled": true,
+      "not_before": "2026-07-23",
+      "frequency": "daily",
+      "at": "23:15",
+      "max_attempts_per_day": 2
+    },
+    "base_refresh": {
+      "enabled": true,
+      "not_before": "2026-07-28",
+      "frequency": "weekly",
+      "weekday": 1,
+      "at": "02:00",
+      "max_attempts_per_slot": 2
+    },
+    "challenger_review": {
+      "enabled": true,
+      "not_before": "2026-08-02",
+      "frequency": "monthly",
+      "day": 2,
+      "at": "03:00",
+      "max_attempts_per_slot": 1,
+      "never_auto_promote": true
+    }
+  },
+  "email": {
+    "enabled": false,
+    "note": "Configure SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, ALERT_EMAIL_FROM e ALERT_EMAIL_TO no ambiente para ativar."
+  }
+}

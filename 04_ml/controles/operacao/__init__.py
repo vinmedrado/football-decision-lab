@@ -1,0 +1,1 @@
+"""Módulos consolidados por domínio."""

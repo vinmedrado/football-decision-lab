@@ -9,3 +9,49 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Local data, provider payloads and generated artifacts
+data/
+cache/
+logs/
+output/
+outputs/
+*/logs/
+*/output/
+*/outputs/
+*/state/
+*.csv
+*.jsonl
+*.parquet
+*.xlsx
+
+# Model artifacts and training outputs
+*.joblib
+*.pkl
+04_ml/datasets/
+04_ml/models/
+04_ml/calibrators/
+04_ml/reports/calibration_curves/
+04_ml/banca/flashscore_cache/
+04_ml/audit_output/
+04_ml/backups/
+04_ml/banca/
+04_ml/challengers/
+04_ml/dashboard/
+04_ml/reports/
+!04_ml/reports/.gitkeep
+03_backtest/results/
+
+# Local tooling
+.idea/
+.vscode/
+venv/
+web_dashboard_lux/tools/api_football_key.txt
+web_dashboard_lux/static/crests/
+web_dashboard_lux/static/crest_fetch_cache.json
+web_dashboard_lux/static/crest-manifest.json
+
+# Local packaging, screenshots and retired material
+public_release/
+Prints/
+_archive/

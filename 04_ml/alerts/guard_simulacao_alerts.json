@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-07-23T11:39:09",
+  "scope": "guard_simulacao_only",
+  "status": "OK",
+  "risk_flags": [],
+  "drawdown": {
+    "banca_atual": 452.15,
+    "banca_pico": 495.7,
+    "drawdown": 0.087856,
+    "status": "OK"
+  },
+  "mercados_bloqueados": [],
+  "drift_level": "DESCONHECIDA",
+  "guard_calibracao_blocked": false,
+  "guard_calibracao_status": null,
+  "guard_calibracao_source": null,
+  "modo_simulacao": true,
+  "apostas_reais_habilitadas": false,
+  "recomendacoes_habilitadas": false,
+  "modo_seguro": true,
+  "alertas": [],
+  "removed_flags": [
+    "CALIBRATION_GUARD_BLOQUEADA"
+  ],
+  "staleness": {
+    "guard_simulacao_stale": false,
+    "guard_simulacao_path": "C:\\Users\\vinimedrado\\Desktop\\teste - lab football\\04_ml\\reports\\estado_guard_simulacao.json",
+    "guard_calibracao_path": "C:\\Users\\vinimedrado\\Desktop\\teste - lab football\\04_ml\\reports\\estado_guard_calibracao.json"
+  },
+  "rules": {
+    "mercado_block": {
+      "roi_below": -0.03,
+      "min_records": 100
+    },
+    "drawdown_caution": 0.1,
+    "drawdown_protection": 0.2
+  },
+  "note": "Estado analítico para revisão humana. Não executa apostas nem recomenda entradas."
+}

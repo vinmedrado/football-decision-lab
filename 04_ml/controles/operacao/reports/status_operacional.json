@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-06-25T11:19:54+00:00",
+  "status": "SIMULATION_ONLY",
+  "permitir_previsoes": false,
+  "motivo": "SIMULATION_MODE_ATIVA",
+  "guard_calibracao": "DESCONHECIDA",
+  "calibration_blocked": false,
+  "raw_calibration_error": null,
+  "calibrated_calibration_error": null,
+  "calibration_source": null,
+  "guard_simulacao": "DESCONHECIDA",
+  "simulation_risk_flags": [],
+  "mercado_governance_status": "DESCONHECIDA",
+  "exposure_status": "DESCONHECIDA",
+  "mercados_bloqueados": [],
+  "mercados_permitidos": [],
+  "alertas": [
+    "SIMULATION_GUARD_REFRESH_ERRO:/opt/pyvenv/bin/python: can't open file '/mnt/data/terminal_nova_arq_work/04_ml/controles/04_ml/13_guard_simulacao.py': [Errno 2] No such file or directory"
+  ],
+  "modo_simulacao": true,
+  "apostas_reais_habilitadas": false,
+  "recomendacoes_habilitadas": false,
+  "modo_seguro": true,
+  "note": "Hotfix seguro: artefatos sincronizados em modo simulação. Não habilita apostas reais nem recomendações operacionais."
+}

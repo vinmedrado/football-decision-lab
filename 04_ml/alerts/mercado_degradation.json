@@ -1,0 +1,6 @@
+{
+  "generated_at": "2026-07-23T11:59:51",
+  "status": "OK",
+  "rule": "ROI < -3% com mínimo de 100 registros finalizados",
+  "degraded_mercados": []
+}

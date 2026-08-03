@@ -1,0 +1,8 @@
+{
+  "mode": "simulation_only",
+  "allow_auto_fill": false,
+  "allow_real_bet_registration": false,
+  "allow_paper_auto_fill": true,
+  "require_manual_export": true,
+  "motivo": "FASE 11 ativa: o projeto gera análise e simulação, mas bloqueia registro automático operacional."
+}

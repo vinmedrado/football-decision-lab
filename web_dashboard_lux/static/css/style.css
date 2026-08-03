@@ -1,0 +1,357 @@
+/* ─────────────────────────────────────────────────────────────
+   Football Decision Lab — Painel ao vivo
+   Paleta: navy profundo + âmbar (mesma linguagem visual do
+   terminal.py e do banner/dashboard já usados no seu portfólio).
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --bg:          #0a0f1c;
+  --bg-elevada:  #111a2c;
+  --painel:      #141f36;
+  --painel-2:    #182544;
+  --borda:       #223154;
+  --texto:       #e7ecf7;
+  --texto-fraco: #8a95b3;
+  --texto-fraquissimo: #5a6785;
+
+  --amber:       #f5a623;
+  --amber-forte: #ffb84d;
+  --verde:       #35d68f;
+  --verde-fraco: #1c4a3a;
+  --vermelho:    #ff6161;
+  --vermelho-fraco: #4a2233;
+  --azul:        #5c9dff;
+
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --raio: 14px;
+  --raio-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--texto);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(245, 166, 35, 0.06), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(92, 157, 255, 0.05), transparent 45%);
+  min-height: 100vh;
+  padding-bottom: 3rem;
+}
+
+::selection { background: var(--amber); color: #1a1200; }
+
+/* ─── Topo ────────────────────────────────────────────────────── */
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--borda);
+  background: rgba(10, 15, 28, 0.85);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.marca .bola {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 12px 2px rgba(245, 166, 35, 0.55);
+}
+
+.marca h1 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.marca span.sub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--texto-fraco);
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+  background: var(--painel);
+  white-space: nowrap;
+}
+
+.status-pill .ponto {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--texto-fraquissimo);
+}
+
+.status-pill.rodando .ponto {
+  background: var(--verde);
+  animation: pulso 1.4s ease-in-out infinite;
+}
+
+.status-pill.rodando { border-color: rgba(53, 214, 143, 0.35); }
+
+@keyframes pulso {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(53, 214, 143, 0.55); }
+  50% { box-shadow: 0 0 0 5px rgba(53, 214, 143, 0); }
+}
+
+/* ─── Layout geral ────────────────────────────────────────────── */
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.grid-topo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 860px) {
+  .grid-topo { grid-template-columns: repeat(2, 1fr); }
+}
+
+.card {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 1rem 1.1rem;
+}
+
+.card .rotulo {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texto-fraco);
+  margin-bottom: 0.35rem;
+}
+
+.card .valor {
+  font-size: 1.55rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.card .valor.positivo { color: var(--verde); }
+.card .valor.negativo { color: var(--vermelho); }
+.card .detalhe {
+  font-size: 0.75rem;
+  color: var(--texto-fraco);
+  margin-top: 0.25rem;
+  font-family: var(--mono);
+}
+
+/* ─── Seções principais ───────────────────────────────────────── */
+
+.secoes {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .secoes { grid-template-columns: 1fr; }
+}
+
+.painel-secao {
+  background: var(--painel);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.painel-secao > .cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--borda);
+  background: var(--painel-2);
+}
+
+.painel-secao > .cabecalho h2 {
+  font-size: 0.85rem;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.painel-secao > .cabecalho .contagem {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--texto-fraco);
+}
+
+/* ─── Terminal ao vivo (elemento-assinatura) ─────────────────── */
+
+.terminal {
+  background: #060a13;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #b7c4e0;
+  padding: 0.9rem 1rem;
+  height: 360px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal .chrome {
+  display: flex;
+  gap: 6px;
+  padding: 0 0 0.6rem 0;
+}
+.terminal .chrome span {
+  width: 10px; height: 10px; border-radius: 50%;
+  display: inline-block;
+  background: #2a3550;
+}
+
+.terminal-linha { padding: 1px 0; }
+.terminal-linha.destaque { color: var(--amber-forte); }
+.terminal-linha.erro { color: var(--vermelho); }
+.terminal-linha.ok { color: var(--verde); }
+
+.cursor {
+  display: inline-block;
+  width: 7px; height: 14px;
+  background: var(--amber);
+  vertical-align: text-bottom;
+  animation: piscar 1s steps(1) infinite;
+}
+@keyframes piscar { 50% { opacity: 0; } }
+
+.etapa-atual {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--texto-fraco);
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--borda);
+  background: var(--painel-2);
+}
+.etapa-atual b { color: var(--amber); font-weight: 600; }
+
+/* ─── Tabelas ─────────────────────────────────────────────────── */
+
+.tabela-wrap {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--painel-2);
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--texto-fraco);
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--borda);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(34, 49, 84, 0.5);
+  white-space: nowrap;
+}
+
+tbody tr:hover { background: rgba(245, 166, 35, 0.04); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge.liberada { background: var(--verde-fraco); color: var(--verde); }
+.badge.bloqueada { background: rgba(90, 103, 133, 0.18); color: var(--texto-fraco); }
+.badge.ganhou { background: var(--verde-fraco); color: var(--verde); }
+.badge.perdeu { background: var(--vermelho-fraco); color: var(--vermelho); }
+
+.vazio {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--texto-fraquissimo);
+  font-size: 0.85rem;
+}
+
+.vazio .icone { font-size: 1.6rem; display: block; margin-bottom: 0.5rem; opacity: 0.6; }
+
+/* ─── Rodapé ──────────────────────────────────────────────────── */
+
+.rodape {
+  text-align: center;
+  color: var(--texto-fraquissimo);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+/* ─── Scrollbar discreta ──────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--borda); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--texto-fraquissimo); }
+
+/* ─── Mobile ──────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .wrap { padding: 0.85rem; }
+  .card .valor { font-size: 1.25rem; }
+  .terminal { height: 260px; font-size: 0.72rem; }
+  .marca h1 { font-size: 0.9rem; }
+}

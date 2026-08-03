@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-07-23T11:57:49",
+  "scope": "analytical_baseline_compare_only",
+  "status": "NO_DATA",
+  "baseline_brier": null,
+  "current_brier": null,
+  "brier_delta_pct": null,
+  "evaluated_records": 0,
+  "deployable_models": 0,
+  "checks": [
+    {
+      "check": "baseline_brier",
+      "status": "NO_DATA",
+      "detail": "baseline_metrics.json sem Brier Score"
+    },
+    {
+      "check": "current_brier",
+      "status": "NO_DATA",
+      "detail": "resumo_deriva.json sem Brier atual"
+    },
+    {
+      "check": "model_registry",
+      "status": "NO_DEPLOYABLE_MODEL",
+      "detail": "nenhum modelo presente no resumo ativo; artefatos antigos não contam como publicáveis"
+    }
+  ],
+  "policy": {
+    "max_brier_worsening": 0.05,
+    "min_evaluated_records": 100
+  },
+  "note": "Comparação analítica. Não troca modelo nem recomenda entrada."
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-06-25T11:19:54+00:00",
+  "status": "OK",
+  "scope": "safe_guard_artifact_refresh",
+  "guard_calibracao": {
+    "status": null,
+    "blocked": null,
+    "source": null,
+    "raw_calibration_error": null,
+    "calibrated_calibration_error": null
+  },
+  "guard_simulacao": {
+    "status": null,
+    "risk_flags": [],
+    "removed_flags": [],
+    "remaining_flags": [],
+    "alertas": [
+      "SIMULATION_GUARD_REFRESH_ERRO:/opt/pyvenv/bin/python: can't open file '/mnt/data/terminal_nova_arq_work/04_ml/controles/04_ml/13_guard_simulacao.py': [Errno 2] No such file or directory"
+    ]
+  },
+  "operational_status": {
+    "status": "SIMULATION_ONLY",
+    "motivo": "SIMULATION_MODE_ATIVA",
+    "permitir_previsoes": false,
+    "modo_simulacao": true,
+    "apostas_reais_habilitadas": false,
+    "recomendacoes_habilitadas": false,
+    "modo_seguro": true
+  }
+}

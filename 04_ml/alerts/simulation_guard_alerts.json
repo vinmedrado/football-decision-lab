@@ -1,0 +1,52 @@
+{
+  "gerado_em": "2026-06-24T19:15:10",
+  "scope": "guard_simulacao_only",
+  "status": "PROTECTION",
+  "risk_flags": [
+    "DEGRADACAO_MERCADO",
+    "DERIVA_CRITICA"
+  ],
+  "drawdown": {
+    "banca_atual": 295.9,
+    "banca_pico": 299.5,
+    "drawdown": 0.01202,
+    "status": "OK"
+  },
+  "mercados_bloqueados": [
+    {
+      "mercado": "DC_12",
+      "apostas": 443,
+      "roi": -0.041603,
+      "motivo": "ROI abaixo de -3% com amostra >= 100",
+      "mode": "blocked_in_guard_simulacao"
+    }
+  ],
+  "drift_level": "CRITICO",
+  "guard_calibracao_blocked": false,
+  "guard_calibracao_status": "OK",
+  "guard_calibracao_source": "calibration_recovery_report",
+  "modo_simulacao": true,
+  "apostas_reais_habilitadas": false,
+  "recomendacoes_habilitadas": false,
+  "modo_seguro": true,
+  "alertas": [
+    "GUARD_SIMULACAO_DESATUALIZADO"
+  ],
+  "removed_flags": [
+    "CALIBRATION_GUARD_BLOQUEADA"
+  ],
+  "staleness": {
+    "guard_simulacao_stale": true,
+    "guard_simulacao_path": "/mnt/data/hotfix_guard_sync_work/football_lab_extract/04_ml/reports/estado_guard_simulacao.json",
+    "guard_calibracao_path": "/mnt/data/hotfix_guard_sync_work/football_lab_extract/04_ml/reports/estado_guard_calibracao.json"
+  },
+  "rules": {
+    "mercado_block": {
+      "roi_below": -0.03,
+      "min_records": 100
+    },
+    "drawdown_caution": 0.1,
+    "drawdown_protection": 0.2
+  },
+  "note": "Estado analítico para revisão humana. Não executa apostas nem recomenda entradas."
+}
