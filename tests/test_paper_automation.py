@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
+import pytest
 import json
 from datetime import datetime
 from pathlib import Path
@@ -30,10 +32,33 @@ def test_real_fill_blocked_and_paper_fill_allowed():
 
 def test_frozen_paper_bundle_hashes_are_valid():
     manager = load_module("paper_manager_test", "04_ml/paper_model_manager.py")
+    config = manager.load_config()
+    # Frozen artifacts are intentionally excluded from the public repository.
+    # Enforce the original validation whenever the private bundle is available.
+    model_paths = manager.target_paths(config, str(config["models"][0]["market"]))
+    if not all(path.is_file() for path in model_paths.values()):
+        pytest.skip("Frozen private model bundle is not shipped in the public CI checkout")
     manifest_path = manager.validate()
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     assert manifest["real_bets_allowed"] is False
     assert manifest["cycle_id"] == "PAPER_2026_07_TG_FT_O25_V1"
+
+
+def test_model_bundle_integrity_detects_tampering_without_private_artifacts(tmp_path):
+    manager = load_module("paper_integrity_ci_test", "04_ml/paper_model_manager.py")
+    config = manager.load_config()
+    assert config["mode"] == "paper_only"
+    assert config["allow_real_bets"] is False
+    artifact = tmp_path / "model.pkl"
+    artifact.write_bytes(b"synthetic model bytes; never load as pickle")
+    expected = hashlib.sha256(artifact.read_bytes()).hexdigest()
+    manager.verify({"model": artifact}, {"model": expected})
+    artifact.write_bytes(b"tampered")
+    with pytest.raises(RuntimeError, match="Hash inválido"):
+        manager.verify({"model": artifact}, {"model": expected})
+    artifact.unlink()
+    with pytest.raises(FileNotFoundError):
+        manager.verify({"model": artifact}, {"model": expected})
 
 
 def test_schedule_does_not_backfill_jobs_before_not_before():
@@ -94,8 +119,21 @@ def test_paper_metrics_are_isolated_and_reproducible():
     assert result["brier"] == 0.325
 
 
-def test_dashboard_does_not_promote_legacy_predictions_to_official_signals():
+def test_dashboard_does_not_promote_legacy_predictions_to_official_signals(tmp_path, monkeypatch):
     dashboard = load_module("dashboard_signal_source_test", "web_dashboard_lux/app.py")
+    # Public CI excludes historical predictions. Construct a small synthetic legacy
+    # file so that we actually exercise the source classification and signal mask.
+    legacy_dir = tmp_path / "legacy"
+    legacy_dir.mkdir()
+    legacy = legacy_dir / "previsoes_2026-07-23.csv"
+    pd.DataFrame([
+        {"data": "2026-07-23", "home": "A", "away": "B", "liga": "L1", "mercado": "TG_FT_O25", "apostar": True},
+        {"data": "2026-07-23", "home": "C", "away": "D", "liga": "L1", "mercado": "TG_FT_O25", "apostar": "1"},
+    ]).to_csv(legacy, index=False)
+    monkeypatch.setattr(dashboard, "ROOT", tmp_path)
+    monkeypatch.setattr(dashboard, "latest_prev_path", lambda selected_date: legacy)
+    monkeypatch.setattr(dashboard, "available_prediction_dates", lambda: ["2026-07-23"])
+    monkeypatch.setattr(dashboard, "flashscore_matches", lambda selected_date: {})
     result = dashboard.previsoes("2026-07-23")
     assert result["origem"] == "legado_pre_ciclo"
     assert result["oficial"] is False
