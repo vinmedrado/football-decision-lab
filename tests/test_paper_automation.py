@@ -130,6 +130,7 @@ def test_dashboard_does_not_promote_legacy_predictions_to_official_signals(tmp_p
         {"data": "2026-07-23", "home": "A", "away": "B", "liga": "L1", "mercado": "TG_FT_O25", "apostar": True},
         {"data": "2026-07-23", "home": "C", "away": "D", "liga": "L1", "mercado": "TG_FT_O25", "apostar": "1"},
     ]).to_csv(legacy, index=False)
+    monkeypatch.setattr(dashboard, "ROOT", tmp_path)
     monkeypatch.setattr(dashboard, "latest_prev_path", lambda selected_date: legacy)
     monkeypatch.setattr(dashboard, "available_prediction_dates", lambda: ["2026-07-23"])
     monkeypatch.setattr(dashboard, "flashscore_matches", lambda selected_date: {})
