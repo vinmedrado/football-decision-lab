@@ -1,5 +1,8 @@
 # Football Decision Lab
 
+**QA (novembro/2026):** [resultados e limitações dos testes](docs/QA_SECURITY_REVIEW_2026.md)
+
+
 Pipeline local de pesquisa e operação simulada para mercados de futebol. O
 projeto coleta jogos e odds, valida dados no tempo, gera features, roda
 backtests, congela modelos, captura entradas pré-jogo e liquida resultados em
