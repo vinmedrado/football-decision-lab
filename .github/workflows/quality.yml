@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install project and test dependencies
-        run: python -m pip install -r requirements.txt
+        run: python -m pip install -r requirements.txt -r web_dashboard_lux/requirements.txt
       - name: Compile Python source
         run: python -m compileall -q 01_scripts 02_val 03_backtest 04_ml analytics core tests scripts
       - name: Regression tests (no provider credentials)
