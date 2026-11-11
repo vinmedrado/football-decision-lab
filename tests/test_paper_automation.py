@@ -119,8 +119,20 @@ def test_paper_metrics_are_isolated_and_reproducible():
     assert result["brier"] == 0.325
 
 
-def test_dashboard_does_not_promote_legacy_predictions_to_official_signals():
+def test_dashboard_does_not_promote_legacy_predictions_to_official_signals(tmp_path, monkeypatch):
     dashboard = load_module("dashboard_signal_source_test", "web_dashboard_lux/app.py")
+    # Public CI excludes historical predictions. Construct a small synthetic legacy
+    # file so that we actually exercise the source classification and signal mask.
+    legacy_dir = tmp_path / "legacy"
+    legacy_dir.mkdir()
+    legacy = legacy_dir / "previsoes_2026-07-23.csv"
+    pd.DataFrame([
+        {"data": "2026-07-23", "home": "A", "away": "B", "liga": "L1", "mercado": "TG_FT_O25", "apostar": True},
+        {"data": "2026-07-23", "home": "C", "away": "D", "liga": "L1", "mercado": "TG_FT_O25", "apostar": "1"},
+    ]).to_csv(legacy, index=False)
+    monkeypatch.setattr(dashboard, "latest_prev_path", lambda selected_date: legacy)
+    monkeypatch.setattr(dashboard, "available_prediction_dates", lambda: ["2026-07-23"])
+    monkeypatch.setattr(dashboard, "flashscore_matches", lambda selected_date: {})
     result = dashboard.previsoes("2026-07-23")
     assert result["origem"] == "legado_pre_ciclo"
     assert result["oficial"] is False
